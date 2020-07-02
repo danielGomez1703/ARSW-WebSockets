@@ -216,7 +216,7 @@ class Game extends React.Component {
                             </div>
                         </div>              
                         <div className="row">
-                            <div className="col-md-8">
+                            <div className="col-md-6">
                                 <ul>RECIBIDOS:
                                     { listMensajeR.map((cadena, index) => (
                                         <li key={index}> {cadena} </li>
@@ -224,7 +224,7 @@ class Game extends React.Component {
                                 </ul>
                             </div>
                 
-                            <div className="col-md-8">
+                            <div className="col-md-6">
                 
                                 <ul>ENVIADOS:
                                     { listMensajeS.map((cadena, index) => (
