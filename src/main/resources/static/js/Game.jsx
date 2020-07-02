@@ -120,6 +120,7 @@ class Game extends React.Component {
     sendMessage(msg) {
 
         this.state.mensajesR.push(msg);
+        this.state.mensajesS.push(null);
         console.log(this.state.mensajes);
 
     }
@@ -129,6 +130,7 @@ class Game extends React.Component {
         let wsreference = this.comunicationWS;
         wsreference.send(this.state.mensaje);
         this.state.mensajesS.push(this.state.mensaje);
+        this.state.mensajesR.push(null);
         this.setState({mensaje: ""});
     }
 
@@ -217,23 +219,23 @@ class Game extends React.Component {
                         </div>              
                         <div className="row">
                             <div className="col-md-6">
-                                <ul>RECIBIDOS:
-                                    { listMensajeR.map((cadena, index) => (
-                                        <li key={index}> {cadena} </li>
-                                                    ))}
-                                </ul>
+                            <ul className="list-group">RECIBIDOS:
+                                { listMensajeR.map((cadena, index) => (
+                                        <li key={index} className="list-group-item active"> {cadena} </li>
+                                                ))}
+                            </ul>
                             </div>
                 
-                            <div className="col-md-6">
+                        <div className="col-md-6">
                 
-                                <ul>ENVIADOS:
-                                    { listMensajeS.map((cadena, index) => (
-                                        <li key={index}> {cadena} </li>
-                                                    ))}
-                                </ul>
-                            </div>
+                        <ul>ENVIADOS:
+                            { listMensajeS.map((cadena, index) => (
+                                        <li key={index} className="list-group-item"> {cadena} </li>
+                                            ))}
+                        </ul>
                         </div>
                     </div>
+                </div>
                 </div>
 
                 );
