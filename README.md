@@ -49,35 +49,8 @@ se puede ver que el proyecto se cre de forma correcta.
 
 
 ## Modelo
-![Modelo](https://github.com/danielGomez1703/ARSW-Lab7/blob/master/resources/Model.PNG)
-
-El modelo de la aplicacion se compone por tres elementos **Punto** La cual va a hacer referencia al objeto que se va a mostrar , es decir un circulo que se concatena con otros para simular el seguimiento del raton
-
-por otra parte tenemos la memoria local, lo caul nos permite trabajar en el mismo tablero para quien lo desee, esto mediante una clase **SharedTable** esta case solo genera una isntancia de si mismo como se ve en el diagrama y retorna esa instancia a quine le necesite.
-
-por ultimo la clase **control** donde se manejan las solicitudes del cliente web y conecta con el REACT.
-    
-    
 
 
-## Descripion
-
-![ev1](https://github.com/danielGomez1703/ARSW-Lab7/blob/master/resources/esquema.PNG)
-
-La aplciacion consiste en un canvas que se crea para que los usuarios puedan escribir dentro del tablero con el fin de hacer clases mas amenas
-
-la trasa son ciruculos concatenados por donde pasa el mouse, es decir sigue la trasa del mouse con circulos y los pinta y guarda en una entidad.
-
-
-![ev2](https://github.com/danielGomez1703/ARSW-Lab7/blob/master/resources/result.PNG)
-
-una vez en la aplicacion el tablero esta disponible para que pueda escribir en el. en caso dado que quiera reiniciar dara click en el boton **clear**
-
-![ev3](https://github.com/danielGomez1703/ARSW-Lab7/blob/master/resources/clear.PNG)
- 
- este mensaje nos confirma que el tablero fue limpiado exitosamente.
- 
- ![ev3](https://github.com/danielGomez1703/ARSW-Lab7/blob/master/resources/final.PNG)
 
 ## DOCUMENTACION
 
