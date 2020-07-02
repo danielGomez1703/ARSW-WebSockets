@@ -26,13 +26,13 @@ import org.springframework.stereotype.Component;
 @ServerEndpoint("/bbService")
 public class ChatEndpoint {
 
-    private static final Logger logger
-            = Logger.getLogger(ChatEndpoint.class.getName());
-    /* Queue for all open WebSocket sessions */
+    private static final Logger logger = Logger.getLogger(ChatEndpoint.class.getName());
+     //Queue for all open WebSocket sessions 
     static Queue<Session> queue = new ConcurrentLinkedQueue<>();
     Session ownSession = null;
 
-    /* Call this method to send a message to all clients */
+    //Call this method to send a message to all clients
+    
     public void send(String msg) {
         try {
             /* Send updates to all open WebSocket sessions */
@@ -49,13 +49,14 @@ public class ChatEndpoint {
 
     @OnMessage
     public void processPoint(String message, Session session) {
-        System.out.println("Point received:" + message + ". From session: "
+        logger.log(Level.INFO,"Point received:" + message + ". From session: "
                 + session);
         this.send(message);
     }
 
     @OnOpen
     public void openConnection(Session session) {
+        //System.out.println("quiere crear sesion");
         /* Register this connection in the queue */
         queue.add(session);
         ownSession = session;
