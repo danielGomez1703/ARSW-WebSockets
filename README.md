@@ -24,7 +24,7 @@ $ mvn spring-boot:run
   
 
   puede acceder a la aplicacion por el siguiente link:
-[link Despliegue Heroku Del Tablero Dinamico](https://floating-citadel-07870.herokuapp.com/TableroOnline.html)
+[link Despliegue Heroku Del Tablero Dinamico](https://arswtick.herokuapp.com/)
 
 # PRUEBAS
 
@@ -35,16 +35,15 @@ Las siguientes imagenes son las evidencias de la aplicacion del chat de la aplic
 
 Al iniciar podemos ver las listas de la conversacion vacias.
 
-![Modelo](https://github.com/danielGomez1703/ARSW-Lab7/blob/master/resources/evidence1.PNG)	
+![Modelo](https://github.com/danielGomez1703/ARSW-WebSockets/blob/master/resources/evidence1.PNG)	
 
-En la siguiente imagen s epuede ver como el punto que se crea en un lado del tablero, cambia asi mismo en el otro cliente.
-
-![Modelo](https://github.com/danielGomez1703/ARSW-Lab7/blob/master/resources/evidence2.PNG)
+aca podemos observar como los mensajes llegan de forma correcta y rapida, dado que estamos usando sockets para la comunicacion
+![Modelo](https://github.com/danielGomez1703/ARSW-WebSockets/blob/master/resources/evidence2.PNG)
 
 se puede ver que el proyecto se cre de forma correcta.
 
 
-![Modelo](https://github.com/danielGomez1703/ARSW-Lab7/blob/master/resources/Build.PNG)
+![Modelo](https://github.com/danielGomez1703/ARSW-WebSockets/blob/master/resources/Build.PNG)
 
 
 
