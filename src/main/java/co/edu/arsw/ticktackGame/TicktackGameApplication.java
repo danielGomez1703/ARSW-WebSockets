@@ -9,7 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TicktackGameApplication implements CommandLineRunner {
+public class TicktackGameApplication {
 
     @Autowired
     private SalaRepository repository;
@@ -21,7 +21,7 @@ public class TicktackGameApplication implements CommandLineRunner {
         app.run(args);
     }
 
-    @Override
+   /* @Override
     public void run(String... args) throws Exception {
 
         repository.deleteAll();
@@ -51,7 +51,7 @@ public class TicktackGameApplication implements CommandLineRunner {
             System.out.println(sala);
         }
 
-    }
+    }*/
 
     static int getPort() {
         if (System.getenv("PORT") != null) {
