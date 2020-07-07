@@ -15,6 +15,7 @@ public class TicktackGameApplication  {
     private SalaRepository repository;
 
     public static void main(String[] args) {
+        
         SpringApplication app = new SpringApplication(TicktackGameApplication.class);
         app.setDefaultProperties(Collections.singletonMap("server.port", getPort()));
         app.setDefaultProperties(Collections.singletonMap("spring.data.mongodb.uri", "mongodb+srv://arsw:arsw1234@cluster0.w7gdd.mongodb.net/arswdb?retryWrites=true&w=majority"));
