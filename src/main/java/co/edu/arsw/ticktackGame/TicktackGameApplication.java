@@ -9,7 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TicktackGameApplication {
+public class TicktackGameApplication  {
 
     @Autowired
     private SalaRepository repository;
@@ -21,7 +21,7 @@ public class TicktackGameApplication {
         app.run(args);
     }
 
-   /* @Override
+    /*@Override
     public void run(String... args) throws Exception {
 
         repository.deleteAll();
