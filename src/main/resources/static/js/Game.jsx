@@ -38,7 +38,7 @@ class WSBBChannel {
     }
     send(envio) {
         let msg = envio//JSON.stringify({mensaje: envio});
-        console.log("sending: ", msg);
+       // console.log("sending: ", msg);
         this.wsocket.send(msg);
     }
 }
@@ -91,7 +91,7 @@ class Game extends React.Component {
                 new WSBBChannel(BBServiceURL(),
                         (msg) => {
                     var obj = JSON.parse(msg);
-                    console.log("On func call back ", msg);
+          //          console.log("On func call back ", msg);
                     this.sendMessage(obj);
                 });
         this.state = {
@@ -123,7 +123,7 @@ class Game extends React.Component {
         
 //        this.state.mensajesR.push(msg);
 //        this.state.mensajesS.push(null);
-        console.log("--------Nuevo Estado----"+ estado);
+      //  console.log("--------Nuevo Estado----"+ estado);
         this.setState(estado);  
         this.setState(
             [this.state.mensajesR,this.state.mensajesS]= [this.state.mensajesS,this.state.mensajesR]
@@ -138,7 +138,7 @@ class Game extends React.Component {
         this.state.mensajesS.push(this.state.mensaje);
         this.state.mensajesR.push(null);
       
-        this.comunicationWS.send(JSON.stringify(this.state))
+        this.comunicationWS.send(JSON.stringify(this.state));
    
         this.setState({mensaje: ""});
     }
@@ -225,7 +225,7 @@ class Game extends React.Component {
                             <div className="input-group mb-3">
                                 <input type="text" className="form-control" name ="mensaje" placeholder="Enviar Mensaje ... " onChange={this.handleChange} />
                                 <div className="input-group-append">
-                                    <button className="btn btn-outline-secondary" type="button" onClick= {this.publish}> Button</button>
+                                    <button className="btn btn-outline-secondary" type="button" onClick= {this.publish}> Send </button>
                                 </div>
                                 <hr/>
                             </div>
