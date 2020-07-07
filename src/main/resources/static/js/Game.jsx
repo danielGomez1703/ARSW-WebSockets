@@ -8,7 +8,7 @@
 // Retorna la url del servicio. Es una función de configuración.
 function BBServiceURL() {
     var host = window.location.host;
-    var url = 'wss://' + (host) + '/bbService';
+    var url = 'ws://' + (host) + '/bbService';
     console.log("URL Calculada: " + url);
     return url;
 }
@@ -37,7 +37,7 @@ class WSBBChannel {
         console.error("In onError", evt);
     }
     send(envio) {
-        let msg = JSON.stringify({mensaje: envio});
+        let msg = envio//JSON.stringify({mensaje: envio});
         console.log("sending: ", msg);
         this.wsocket.send(msg);
     }
@@ -86,12 +86,13 @@ class Board extends React.Component {
 class Game extends React.Component {
     constructor(props) {
         super(props);
+        
         this.comunicationWS =
                 new WSBBChannel(BBServiceURL(),
                         (msg) => {
                     var obj = JSON.parse(msg);
                     console.log("On func call back ", msg);
-                    this.sendMessage(obj.mensaje);
+                    this.sendMessage(obj);
                 });
         this.state = {
             history: [
@@ -105,7 +106,7 @@ class Game extends React.Component {
             mensajesS: []
 
         };
-        let wsreference = this.comunicationWS;
+       
         this.publish = this.publish.bind(this);
         this.handleChange = this.handleChange.bind(this);
 
@@ -117,20 +118,28 @@ class Game extends React.Component {
         );
     }
 
-    sendMessage(msg) {
-
-        this.state.mensajesR.push(msg);
-        this.state.mensajesS.push(null);
-        console.log(this.state.mensajes);
+    sendMessage(estado) {
+        
+        
+//        this.state.mensajesR.push(msg);
+//        this.state.mensajesS.push(null);
+        console.log("--------Nuevo Estado----"+ estado);
+        this.setState(estado);  
+        this.setState(
+            [this.state.mensajesR,this.state.mensajesS]= [this.state.mensajesS,this.state.mensajesR]
+        );
+        
+        //console.log(this.state);
 
     }
 
     publish() {
-        console.log(this.state.mensaje);
-        let wsreference = this.comunicationWS;
-        wsreference.send(this.state.mensaje);
+        
         this.state.mensajesS.push(this.state.mensaje);
         this.state.mensajesR.push(null);
+      
+        this.comunicationWS.send(JSON.stringify(this.state))
+   
         this.setState({mensaje: ""});
     }
 
@@ -157,6 +166,10 @@ class Game extends React.Component {
             ]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext
+        },() => {
+            //let wsreference = this.comunicationWS;
+          this.comunicationWS.send(JSON.stringify(this.state));
+            
         });
     }
 

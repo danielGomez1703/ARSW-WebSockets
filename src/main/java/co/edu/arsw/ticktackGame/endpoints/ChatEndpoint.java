@@ -34,6 +34,7 @@ public class ChatEndpoint {
     //Call this method to send a message to all clients
     
     public void send(String msg) {
+        System.out.println("estoy enviando un mensaje........");
         try {
             /* Send updates to all open WebSocket sessions */
             for (Session session : queue) {
@@ -56,7 +57,7 @@ public class ChatEndpoint {
 
     @OnOpen
     public void openConnection(Session session) {
-        //System.out.println("quiere crear sesion");
+        System.out.println("quiere crear sesion "+session);
         /* Register this connection in the queue */
         queue.add(session);
         ownSession = session;

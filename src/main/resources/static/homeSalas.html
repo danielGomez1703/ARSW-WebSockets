@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>SALAS</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="css/styles.css"   type="text/css" />
+        <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+        <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>  
+        <script  src="js/apiSala.js" ></script>
+
+    </head>
+    <body>
+          
+        <div class="modal-dialog text-center" >
+            <h1 class="modal-title">ARSW - LAB 8</h1>
+            <div class="modal-content">
+
+                <h2 class="modal-title">Inicio</h2>
+                <form class="col-12">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="nickname"  placeholder="Nickname">
+                            <br/>
+                            <input type="text" class="form-control" id="idsala"  placeholder="Numsala">
+                            <br/>
+                            <button type="submit" class="btn btn-primary">ENTRAR</button>
+                            <button type="submit" class="btn" align="center" onClick="createSala()">CREAR</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
