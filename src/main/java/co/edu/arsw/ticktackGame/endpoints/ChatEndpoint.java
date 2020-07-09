@@ -50,7 +50,7 @@ public class ChatEndpoint {
                 if ((!session.equals(this.ownSession) && (session.getUserProperties().get("room").equals(room)))){
                     session.getBasicRemote().sendText(msg);
                 }
-                logger.log(Level.INFO, "Sent: {0}", msg);
+                //logger.log(Level.INFO, "Sent: {0}", msg);
             }
         } catch (IOException e) {
             logger.log(Level.INFO, e.toString());
@@ -67,7 +67,6 @@ public class ChatEndpoint {
     @OnOpen
     public void openConnection(Session session,@PathParam("room") final String room) {
         /* crea la sala y guarda el numero en la session*/
-        ;
         session.getUserProperties().put("room",room);
         queue.add(session);
         ownSession = session;
