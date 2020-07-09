@@ -20,8 +20,7 @@ public interface SalaRepository extends MongoRepository < Sala , String >{
     //public Sala save (Sala s);
 
 
+    public Sala findBySalaId(String id);
 
-    public Sala findByIdSala(String idSala);
-
-    public Iterable<Sala> findByMatriz(String matriz);
+    //public Iterable<Sala> findByMatriz(String matriz);
 }

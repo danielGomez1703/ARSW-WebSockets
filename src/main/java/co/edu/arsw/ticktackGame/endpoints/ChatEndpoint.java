@@ -9,6 +9,9 @@ package co.edu.arsw.ticktackGame.endpoints;
  *
  * @author danip
  */
+import co.edu.arsw.ticktackGame.entities.Sala;
+import co.edu.arsw.ticktackGame.repositories.SalaRepository;
+import co.edu.arsw.ticktackGame.services.SalaService;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.Queue;
@@ -19,13 +22,19 @@ import javax.websocket.OnError;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-@ServerEndpoint("/bbService")
+@ServerEndpoint("/bbService/{room}")
 public class ChatEndpoint {
+    
+    @Autowired
+    private SalaRepository salaService;
 
+    
     private static final Logger logger = Logger.getLogger(ChatEndpoint.class.getName());
      //Queue for all open WebSocket sessions 
     static Queue<Session> queue = new ConcurrentLinkedQueue<>();
@@ -33,12 +42,12 @@ public class ChatEndpoint {
 
     //Call this method to send a message to all clients
     
-    public void send(String msg) {
-        System.out.println("estoy enviando un mensaje........");
+    public void send(String msg, final String room) {
+        System.out.println("estoy enviando un mensaje en la sala: " + room);
         try {
             /* Send updates to all open WebSocket sessions */
             for (Session session : queue) {
-                if (!session.equals(this.ownSession)) {
+                if ((!session.equals(this.ownSession) && (session.getUserProperties().get("room").equals(room)))){
                     session.getBasicRemote().sendText(msg);
                 }
                 logger.log(Level.INFO, "Sent: {0}", msg);
@@ -49,16 +58,17 @@ public class ChatEndpoint {
     }
 
     @OnMessage
-    public void processPoint(String message, Session session) {
+    public void processPoint(String message, Session session, @PathParam("room") String room) {
         logger.log(Level.INFO,"Point received:" + message + ". From session: "
                 + session);
-        this.send(message);
+        this.send(message,room);
     }
 
     @OnOpen
-    public void openConnection(Session session) {
-        System.out.println("quiere crear sesion "+session);
-        /* Register this connection in the queue */
+    public void openConnection(Session session,@PathParam("room") final String room) {
+        /* crea la sala y guarda el numero en la session*/
+        ;
+        session.getUserProperties().put("room",room);
         queue.add(session);
         ownSession = session;
         logger.log(Level.INFO, "Connection opened.");

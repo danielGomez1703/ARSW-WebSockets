@@ -16,22 +16,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@RequestMapping(value = "/salas")
 public class DrawingServiceController {
 
     @Autowired
     private SalaRepository Salarepository;
 
-    @RequestMapping(value = "/salas/{id}", method = GET)
+    @RequestMapping(value = "/{id}", method = POST)
     @ResponseBody
-    public String createSala(@PathVariable("id") String id) {
-
+    public void createSala(@PathVariable(value = "id") String id) {
         System.out.println("debe crear la sala num: " + id);
         try {
-            Sala newSala = new Sala(id, "");
+            Sala newSala = new Sala(id);
             Salarepository.save(newSala);
             for (Sala sala : Salarepository.findAll()) {
                 System.out.println(sala);
@@ -40,8 +41,23 @@ public class DrawingServiceController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-        return "redirect:/index.html";
+    @RequestMapping(value = "/disp/{id}", method = GET)
+    public boolean JoinSala(@PathVariable(value = "id") String id) {
+        System.out.println("debe unirse a la sala : " + id);
+        try {
+            Sala sala = Salarepository.findBySalaId(id);
+            System.out.println(sala);
+            if (sala != null) {
+                return true;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return false;
     }
 
     @GetMapping("/status")

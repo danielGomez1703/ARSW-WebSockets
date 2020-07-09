@@ -5,10 +5,14 @@
  * 
  */
 
+const { Component } = React;
+const { render } = ReactDOM;
+
 // Retorna la url del servicio. Es una función de configuración.
 function BBServiceURL() {
     var host = window.location.host;
-    var url = 'wss://' + (host) + '/bbService';
+    var sala = sessionStorage.getItem("sala");
+    var url = 'ws://' + (host) + '/bbService/'+sala;
     console.log("URL Calculada: " + url);
     return url;
 }
@@ -37,8 +41,9 @@ class WSBBChannel {
         console.error("In onError", evt);
     }
     send(envio) {
-        let msg = envio//JSON.stringify({mensaje: envio});
-       // console.log("sending: ", msg);
+        let msg = envio;
+        //JSON.stringify({mensaje: envio});
+        // console.log("sending: ", msg);
         this.wsocket.send(msg);
     }
 }
@@ -86,12 +91,12 @@ class Board extends React.Component {
 class Game extends React.Component {
     constructor(props) {
         super(props);
-        
+
         this.comunicationWS =
                 new WSBBChannel(BBServiceURL(),
                         (msg) => {
                     var obj = JSON.parse(msg);
-          //          console.log("On func call back ", msg);
+                    //          console.log("On func call back ", msg);
                     this.sendMessage(obj);
                 });
         this.state = {
@@ -106,7 +111,7 @@ class Game extends React.Component {
             mensajesS: []
 
         };
-       
+
         this.publish = this.publish.bind(this);
         this.handleChange = this.handleChange.bind(this);
 
@@ -119,27 +124,25 @@ class Game extends React.Component {
     }
 
     sendMessage(estado) {
-        
-        
+
+
 //        this.state.mensajesR.push(msg);
 //        this.state.mensajesS.push(null);
-      //  console.log("--------Nuevo Estado----"+ estado);
-        this.setState(estado);  
+        //  console.log("--------Nuevo Estado----"+ estado);
+        this.setState(estado);
         this.setState(
-            [this.state.mensajesR,this.state.mensajesS]= [this.state.mensajesS,this.state.mensajesR]
-        );
-        
+                [this.state.mensajesR, this.state.mensajesS] = [this.state.mensajesS, this.state.mensajesR]
+                );
+
         //console.log(this.state);
 
     }
 
     publish() {
-        
+
         this.state.mensajesS.push(this.state.mensaje);
         this.state.mensajesR.push(null);
-      
         this.comunicationWS.send(JSON.stringify(this.state));
-   
         this.setState({mensaje: ""});
     }
 
@@ -166,10 +169,10 @@ class Game extends React.Component {
             ]),
             stepNumber: history.length,
             xIsNext: !this.state.xIsNext
-        },() => {
+        }, () => {
             //let wsreference = this.comunicationWS;
-          this.comunicationWS.send(JSON.stringify(this.state));
-            
+            this.comunicationWS.send(JSON.stringify(this.state));
+
         });
     }
 
@@ -232,29 +235,29 @@ class Game extends React.Component {
                         </div>              
                         <div className="row">
                             <div className="col-md-6">
-                            <ul className="list-group">RECIBIDOS:
-                                { listMensajeR.map((cadena, index) => (
+                                <ul className="list-group">RECIBIDOS:
+                                    { listMensajeR.map((cadena, index) => (
                                         <li key={index} className="list-group-item active"> {cadena} </li>
-                                                ))}
-                            </ul>
+                                                    ))}
+                                </ul>
                             </div>
                 
-                        <div className="col-md-6">
+                            <div className="col-md-6">
                 
-                        <ul>ENVIADOS:
-                            { listMensajeS.map((cadena, index) => (
+                                <ul>ENVIADOS:
+                                    { listMensajeS.map((cadena, index) => (
                                         <li key={index} className="list-group-item"> {cadena} </li>
-                                            ))}
-                        </ul>
+                                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
                 </div>
 
                 );
     }
-}
 
+}
 
 
 ReactDOM.render(<Game />, document.getElementById("root"));
