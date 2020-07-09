@@ -12,7 +12,7 @@ const { render } = ReactDOM;
 function BBServiceURL() {
     var host = window.location.host;
     var sala = sessionStorage.getItem("sala");
-    var url = 'ws://' + (host) + '/bbService/'+sala;
+    var url = 'wss://' + (host) + '/bbService/'+sala;
     console.log("URL Calculada: " + url);
     return url;
 }
