@@ -5,14 +5,15 @@
  * 
  */
 
-const { Component } = React;
-const { render } = ReactDOM;
+const {Component} = React;
+const {render} = ReactDOM;
+
 
 // Retorna la url del servicio. Es una función de configuración.
 function BBServiceURL() {
     var host = window.location.host;
     var sala = sessionStorage.getItem("sala");
-    var url = 'ws://' + (host) + '/bbService/'+sala;
+    var url = 'ws://' + (host) + '/bbService/' + sala;
     console.log("URL Calculada: " + url);
     return url;
 }
@@ -100,6 +101,7 @@ class Game extends React.Component {
                     this.sendMessage(obj);
                 });
         this.state = {
+            idSala: sessionStorage.getItem("sala"),
             history: [
                 {
                     squares: Array(9).fill(null)
@@ -151,6 +153,30 @@ class Game extends React.Component {
             [target.name]: target.value
         });
     }
+    
+    updatesstate() {
+        var sala = sessionStorage.getItem("sala");
+        let url = "/salas/update/" + sala;
+        const data = new FormData();
+        let newstate=this.state;
+        data.append("estado", JSON.stringify(this.state))
+        console.log("entra a la funcion " + url);
+        fetch(url, {
+            method: 'POST',
+            body: data
+        }).then(function (response) {
+            if (response.ok) {
+                console.log("actualizar la sala: " + sala);
+                return response.json();
+            } else {
+                console.log("no fue posible actualizar la sala");
+                throw "Error en la llamada Ajax";
+            }
+        }).then(function (resultado) {
+                console.log(resultado);
+        });
+        
+    }
 
     handleClick(i) {
 
@@ -174,6 +200,7 @@ class Game extends React.Component {
             this.comunicationWS.send(JSON.stringify(this.state));
 
         });
+        //this.updatesstate();
     }
 
     jumpTo(step) {
@@ -238,7 +265,7 @@ class Game extends React.Component {
                                 <ul className="list-group">RECIBIDOS:
                                     { listMensajeR.map((cadena, index) => (
                                         <li key={index} className="list-group-item active"> {cadena} </li>
-                                                    ))}
+                                ))}
                                 </ul>
                             </div>
                 
@@ -247,7 +274,7 @@ class Game extends React.Component {
                                 <ul>ENVIADOS:
                                     { listMensajeS.map((cadena, index) => (
                                         <li key={index} className="list-group-item"> {cadena} </li>
-                                                    ))}
+                                ))}
                                 </ul>
                             </div>
                         </div>

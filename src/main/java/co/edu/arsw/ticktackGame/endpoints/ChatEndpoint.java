@@ -12,6 +12,7 @@ package co.edu.arsw.ticktackGame.endpoints;
 import co.edu.arsw.ticktackGame.entities.Sala;
 import co.edu.arsw.ticktackGame.repositories.SalaRepository;
 import co.edu.arsw.ticktackGame.services.SalaService;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.Queue;
@@ -50,7 +51,7 @@ public class ChatEndpoint {
                 if ((!session.equals(this.ownSession) && (session.getUserProperties().get("room").equals(room)))){
                     session.getBasicRemote().sendText(msg);
                 }
-                //logger.log(Level.INFO, "Sent: {0}", msg);
+                logger.log(Level.INFO, "Sent: {0}", msg);
             }
         } catch (IOException e) {
             logger.log(Level.INFO, e.toString());
@@ -61,6 +62,11 @@ public class ChatEndpoint {
     public void processPoint(String message, Session session, @PathParam("room") String room) {
         logger.log(Level.INFO,"Point received:" + message + ". From session: "
                 + session);
+       // Sala newsala = new Gson().fromJson(message, Sala.class);
+        //Sala oldsala= salaService.findBySalaId(room);
+       // salaService.delete(oldsala);
+       // salaService.save(newsala);
+        //System.out.println(newsala);
         this.send(message,room);
     }
 

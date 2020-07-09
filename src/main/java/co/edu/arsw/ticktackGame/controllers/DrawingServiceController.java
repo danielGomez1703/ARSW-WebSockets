@@ -11,12 +11,15 @@ package co.edu.arsw.ticktackGame.controllers;
  */
 import co.edu.arsw.ticktackGame.entities.Sala;
 import co.edu.arsw.ticktackGame.repositories.SalaRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -50,6 +53,9 @@ public class DrawingServiceController {
             Sala sala = Salarepository.findBySalaId(id);
             System.out.println(sala);
             if (sala != null) {
+                ObjectMapper obj = new ObjectMapper();
+                String jsonStr = obj.writeValueAsString(sala);
+              //  System.out.println(jsonStr);
                 return true;
             }
 
@@ -58,6 +64,28 @@ public class DrawingServiceController {
 
         }
         return false;
+    }
+
+    @RequestMapping(value = "/update/{id}", method = POST ) 
+
+    public String UpdateSala(@RequestParam(value = "estado", defaultValue = "anonymous") String estado, @PathVariable(value = "id") String id) {
+      //  System.out.println("--------------------------------------Actualizar------------------------------------");
+       // System.out.println("debe actualizar  la sala : " + id);
+        Sala newsala = new Gson().fromJson(estado, Sala.class);
+        try {
+            Sala sala = Salarepository.findBySalaId(id);
+            Salarepository.deleteBySalaId(id);
+            Salarepository.save(newsala); 
+            ObjectMapper obj = new ObjectMapper();
+            String jsonStr = obj.writeValueAsString(sala);
+         //   System.out.println(jsonStr);
+            return jsonStr;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+        return null;
     }
 
     @GetMapping("/status")

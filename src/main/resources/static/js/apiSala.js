@@ -44,19 +44,25 @@ function JoinRoom() {
         if (response.ok) {
             console.log("crear la sala: " + numSala);
             return response.json();
+
         } else {
             console.log("no fue posible crear la sala");
             throw "Error en la llamada Ajax";
         }
     }).then(function (connect) {
-        if (connect) {
-            sessionStorage.setItem("sala",numSala);
-            window.location.href = "/index.html";  
-        }else{
-            window.alert ("no pude unirse a esta sala");
+
+        if ((connect)) {
+            sessionStorage.setItem("sala", numSala);
+            window.location.href = "/index.html";
+        } else {
+            window.alert("no pude unirse a esta sala");
         }
     });
 
     return false;
 
+}
+
+function updateState() {
+    window.alert("entra a la funcion");
 }

@@ -21,6 +21,7 @@ public interface SalaRepository extends MongoRepository < Sala , String >{
 
 
     public Sala findBySalaId(String id);
+    public void deleteBySalaId(String id);
 
     //public Iterable<Sala> findByMatriz(String matriz);
 }
