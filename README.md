@@ -35,15 +35,15 @@ Las siguientes imagenes son las evidencias de la aplicacion del chat de la aplic
 
 Al iniciar podemos ver las listas de la conversacion vacias.
 
-![Modelo](https://github.com/danielGomez1703/ARSW-WebSockets/blob/master/resources/evidence1.PNG)	
+![Modelo](https://github.com/danielGomez1703/ARSW-WebSockets/blob/master/resourcers/evidence1.PNG)	
 
 aca podemos observar como los mensajes llegan de forma correcta y rapida, dado que estamos usando sockets para la comunicacion
-![Modelo](https://github.com/danielGomez1703/ARSW-WebSockets/blob/master/resources/evidence2.PNG)
+![Modelo](https://github.com/danielGomez1703/ARSW-WebSockets/blob/master/resourcers/evidence2.PNG)
 
 se puede ver que el proyecto se cre de forma correcta.
 
 
-![Modelo](https://github.com/danielGomez1703/ARSW-WebSockets/blob/master/resources/Build.PNG)
+![Modelo](https://github.com/danielGomez1703/ARSW-WebSockets/blob/master/resourcers/Build.PNG)
 
 
 
